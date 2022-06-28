@@ -1,10 +1,9 @@
 import { Router } from 'express';
+import userRouter from './routes/userRouter';
 
 const router = Router();
 
-router.use('/api/', (req, res) => {
-    return res.status(200).json({ status: 'ok' });
-});
+router.use('/api/users', userRouter);
 
 // Request made to non-existent resource
 router.use((req, res) => {
