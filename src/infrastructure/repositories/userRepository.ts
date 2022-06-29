@@ -1,7 +1,7 @@
 import IUser from '@domain/user/IUser';
 import IUserRepository from '@domain/user/IUserRepository';
 import userModel from '@infrastructure/db/mongo/models/userModel';
-import { encrypt } from '@infrastructure/utils/bcrypt/crypt';
+import { compare, encrypt } from '@infrastructure/utils/bcrypt/crypt';
 
 class UserRepository implements IUserRepository {
     async findAllUsers(): Promise<any> {
@@ -23,6 +23,16 @@ class UserRepository implements IUserRepository {
             return userData;
         } else {
             throw Error;
+        }
+    }
+
+    async checkLogin({ email, password }): Promise<any> {
+        const userData = await userModel.findOne({ email });
+
+        if (compare(password, userData.password)) {
+            return userData._id;
+        } else {
+            return null;
         }
     }
 }
