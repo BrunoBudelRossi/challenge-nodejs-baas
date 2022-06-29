@@ -5,9 +5,7 @@ import { compare, encrypt } from '@infrastructure/utils/bcrypt/crypt';
 
 class UserRepository implements IUserRepository {
     async findAllUsers(): Promise<any> {
-        const userData = await userModel.find({
-            deleted: false,
-        });
+        const userData = await userModel.find();
 
         if (userData) {
             return userData;

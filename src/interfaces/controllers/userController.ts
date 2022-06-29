@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
-import findAllUsers from '@application/use_case/user/findAllUsers';
 import userRepository from '@infrastructure/repositories/userRepository';
+import findAllUsers from '@application/use_case/user/findAllUsers';
 import createUser from '@application/use_case/user/createUser';
 
 export default {
     findAllUsers: async (req: Request, res: Response): Promise<Response> => {
         try {
-            const resultUser = await findAllUsers(userRepository);
+            const resultUsers = await findAllUsers(userRepository);
 
             return res.status(200).json({
                 status: 'success',
                 message: 'All users returned successfully',
-                payload: resultUser,
+                payload: resultUsers,
             });
         } catch (err) {
             return res.status(500).json({
