@@ -4,7 +4,6 @@ import IUser from '@domain/user/IUser';
 
 const UserSchema: Schema = new Schema(
     {
-        userId: { type: String, required: true },
         name: { type: String, required: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
