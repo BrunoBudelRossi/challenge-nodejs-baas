@@ -15,4 +15,6 @@ accountRouter
     .route('/:accountId/getBalance')
     .get(accountController.findAccountBalance);
 
+accountRouter.route('/:accountId/transfer').put(accountController.P2PTransfer);
+
 export default accountRouter;

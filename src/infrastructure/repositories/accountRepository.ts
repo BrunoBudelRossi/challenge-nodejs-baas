@@ -53,6 +53,39 @@ class AccountRepository implements IAccountRepository {
             throw Error;
         }
     }
+
+    async P2PTransfer(
+        accountId: string,
+        recieverAccountId: string,
+        ammount: number
+    ): Promise<any> {
+        const accountData = await AccountModel.findOne({ _id: accountId });
+        const recieverAccountData = await AccountModel.findOne({
+            _id: recieverAccountId,
+        });
+
+        if (!accountData) {
+            throw new Error('This shipping account is invalid');
+        } else if (!recieverAccountData) {
+            throw new Error('This reciever account is invalid');
+        } else if (accountData.balance - ammount < 0) {
+            throw new Error('Account has no balance for this transfer');
+        } else {
+            await AccountModel.updateOne(
+                {
+                    _id: recieverAccountId,
+                },
+                { balance: recieverAccountData.balance + ammount }
+            );
+
+            accountData.balance -= ammount;
+            await AccountModel.updateOne(
+                { _id: accountId },
+                { balance: accountData.balance }
+            );
+            return accountData;
+        }
+    }
 }
 
 export default new AccountRepository();
