@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import userRepository from '@infrastructure/repositories/userRepository';
 import findAllUsers from '@application/use_case/user/findAllUsers';
 import createUser from '@application/use_case/user/createUser';
+import findUserDetails from '@application/use_case/user/findUserDetails';
 
 export default {
     findAllUsers: async (req: Request, res: Response): Promise<Response> => {
@@ -42,6 +43,25 @@ export default {
             return res.status(500).json({
                 status: 'error',
                 message: err.message || 'Error while find all users',
+                payload: [err],
+            });
+        }
+    },
+
+    findUserDetails: async (req: Request, res: Response): Promise<Response> => {
+        try {
+            const { userId } = req.params;
+            const resultUsers = await findUserDetails(userRepository, userId);
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'All user details returned successfully',
+                payload: resultUsers,
+            });
+        } catch (err) {
+            return res.status(500).json({
+                status: 'error',
+                message: err.message || 'Error while find user details',
                 payload: [err],
             });
         }

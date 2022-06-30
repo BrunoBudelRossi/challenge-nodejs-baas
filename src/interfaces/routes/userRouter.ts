@@ -9,5 +9,6 @@ userRouter.use('/:userId/accounts', accountRouter);
 userRouter.use('/:userId/documents', documentRouter);
 
 userRouter.route('/').get(userController.findAllUsers);
+userRouter.route('/:userId').get(userController.findUserDetails);
 
 export default userRouter;
