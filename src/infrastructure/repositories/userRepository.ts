@@ -37,20 +37,14 @@ class UserRepository implements IUserRepository {
     }
 
     async findUserDetails(userId: string): Promise<any> {
-        const data = [];
-        data.push({ user: await UserModel.findOne({ userId }) });
-        data.push({ account: await accountModel.findOne({ userId }) });
+        const user = await UserModel.findOne({ userId });
 
-        const documentData = await DocumentModel.find({ userId });
-        const docs = { documents: [] };
-
-        documentData.forEach((doc) => {
-            docs.documents.push(doc);
-        });
-        data.push(docs);
-
-        if (data) {
-            return data;
+        if (user) {
+            return {
+                user,
+                account: await accountModel.findOne({ userId }),
+                documents: await DocumentModel.find({ userId }),
+            };
         } else {
             throw Error;
         }

@@ -56,7 +56,7 @@ export default {
             return res.status(200).json({
                 status: 'success',
                 message: 'All user details returned successfully',
-                payload: resultUsers,
+                payload: [resultUsers],
             });
         } catch (err) {
             return res.status(500).json({
