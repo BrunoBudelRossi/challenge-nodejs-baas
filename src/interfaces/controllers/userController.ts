@@ -42,7 +42,7 @@ export default {
         } catch (err) {
             return res.status(500).json({
                 status: 'error',
-                message: err.message || 'Error while find all users',
+                message: err.message || 'Error while create new user',
                 payload: [err],
             });
         }

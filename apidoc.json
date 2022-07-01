@@ -1,0 +1,7 @@
+{
+    "name": "challenge-nodejs-baas",
+    "version": "0.1.0",
+    "description": "Bank as a Service challenger",
+    "title": "BAAS API documentation",
+    "url": "http://localhost:8080"
+}
